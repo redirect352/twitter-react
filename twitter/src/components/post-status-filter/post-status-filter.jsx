@@ -1,15 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import "./post-status-filter.css";
+import { Button } from "reactstrap";
 
-const PostStatusFilter = ()=>{
+const PostStatusFilter = ({changeDisplayCondition})=>{
+	const [filter, changeFilter] = useState('all');
+	const filterCliked  = (filterName, condition) => {
+		changeFilter(filterName);
+		changeDisplayCondition(condition)
+	}
+
 	return(
 		<div className="btn-group">
-			<button 
-			className="btn btn-info"
-			type="button">All</button>
-			<button 
-			className="btn btn-outline-secondary"
-			type="button">Liked</button>
+			<Button 
+					outline = {filter !== 'all'} 
+					onClick={() => filterCliked('all', () => post => post)}
+					color ="info"
+					>
+				All
+			</Button>
+			<Button 
+					outline = {filter !== 'liked'}
+					onClick={() => filterCliked('liked', () => post => post.liked)}
+					color ="info"
+					>
+				Liked
+			</Button>
 		</div>
 	);
 }

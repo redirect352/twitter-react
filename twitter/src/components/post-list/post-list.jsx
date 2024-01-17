@@ -1,23 +1,25 @@
 import React from "react";
 import "./post-list";
 import PostListItem from "../post-list-item";
+import { ListGroup } from "reactstrap";
 
-const PostList = ({posts = []})=>{
-	
-	const postElements = posts.map((item, index) =>{
-		const {id, ...itemProps} = item;
+const PostList = ({posts = [], deleteItem, onLiked})=>{
+	const postElements = posts.map((item, index) => {
+		const {id, display,...itemProps} = item;	
 		return (
-			<PostListItem {...itemProps} key={id ?? index}></PostListItem>
-		);
+			<PostListItem 
+			{...itemProps} 
+			key={id ?? index}
+			onDeleteItem = {()=>deleteItem(id)}
+			onLiked = {() => onLiked(id)}
+			></PostListItem>
+		)
 	});
 
 	return(
-		<ul className="app-list list-group">
+		<ListGroup className="app-list">
 			{postElements}
-			{/* <PostListItem label = "Going to leart React technology!" important = {false}/>
-			<PostListItem label = "Going to study hard!" important />
-			<PostListItem label = "Want to improve my english!" important = {false}/> */}
-		</ul>
+		</ListGroup>
 	);
 }
 
